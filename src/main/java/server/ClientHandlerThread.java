@@ -1,8 +1,11 @@
 package server;
 
 import client.Connection;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dao.WriterDao;
 import models.Article;
+import models.Writer;
 import service.ArticleService;
 import service.AuthService;
 
@@ -59,6 +62,49 @@ public class ClientHandlerThread  extends Thread {
                 String json=new String(data);
                 System.out.println(json);
                 connection.send(json);
+            }
+
+            if(line.equals("CREATEWRITER")){
+                String username=connection.recvString();
+                String password= connection.recvString();
+                AuthService authService =new AuthService();
+                authService.createWriter(username,password);
+
+            }
+
+
+            if(line.equals("CREATEARTICLE")){
+                String json=connection.recvString();
+                final ObjectMapper mapper = new ObjectMapper();
+                try {
+                    Article article =mapper.readValue(json,Article.class);
+                    ArticleService articleService = new ArticleService();
+                    articleService.create(article);
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(line.equals("UPDATEARTICLE")){
+                String json=connection.recvString();
+                final ObjectMapper mapper = new ObjectMapper();
+                try {
+                    Article article =mapper.readValue(json,Article.class);
+                    ArticleService articleService = new ArticleService();
+                    articleService.update(article);
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(line.equals("DELETEARTICLE")){
+                String json=connection.recvString();
+                final ObjectMapper mapper = new ObjectMapper();
+                try {
+                    Article article =mapper.readValue(json,Article.class);
+                    ArticleService articleService = new ArticleService();
+                    articleService.delete(article);
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

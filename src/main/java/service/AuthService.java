@@ -34,8 +34,11 @@ public class AuthService {
         return 0;
     }
 
-    public void createWriter()
+    public void createWriter(String username, String password)
     {
-
+        WriterDao writerDao=new WriterDao();
+        writerDao.beginTransaction();
+        writerDao.save(new Writer(username,password));
+        writerDao.closeTransaction();
     }
 }
