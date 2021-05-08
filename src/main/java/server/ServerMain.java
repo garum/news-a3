@@ -1,7 +1,11 @@
 package server;
 
 import dao.AdminDao;
+import dao.ArticleDao;
+import dao.WriterDao;
 import models.Admin;
+import models.Article;
+import models.Writer;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,16 +19,10 @@ public class ServerMain  {
     static public void main(String[] args)
     {
         Server server = new Server();
-        //server.startServer();
+        server.startServer();
 
-        System.out.println("database query");
-        AdminDao adminDao =new AdminDao();
-        adminDao.beginTransaction();
 
-        adminDao.delete(adminDao.get(3));
-        adminDao.update(new Admin(2L,"userupdated","123"));
 
-        adminDao.closeTransaction();
     }
 
 }

@@ -1,6 +1,6 @@
 package client.view;
 
-import client.LoginController;
+import client.controller.LoginController;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

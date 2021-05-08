@@ -1,27 +1,26 @@
 package client;
 
+import client.controller.LoginController;
+import client.controller.ReaderController;
 import client.view.LoginView;
+import client.view.ReaderView;
 
-import java.io.*;
 import java.net.InetAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.concurrent.TimeUnit;
 
 public class ClientMain {
 
     public static void main(String[] args) {
         try{
-            LoginView longView= new LoginView();
-
+            LoginView loginView= new LoginView();
+            ReaderView  readerView = new ReaderView();
             InetAddress serverAdress = InetAddress.getLocalHost();
             Connection connection = new Connection(serverAdress, 3333);
-            connection.send("hello server");
-            String msg = connection.recvString();
-            System.out.println("Client: " + msg);
 
             LoginController loginController = new LoginController(connection);
-            longView.setLoginController(loginController);
+            ReaderController readerController = new ReaderController(connection);
+            loginView.setLoginController(loginController);
+            readerView.setReaderController(readerController);
+            readerView.populateList();
 
         }catch(Exception e){System.out.println(e);}
     }
