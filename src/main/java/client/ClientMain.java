@@ -11,19 +11,25 @@ import client.view.WriterView;
 import models.Article;
 import models.Writer;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.InetAddress;
+import java.net.Socket;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ClientMain {
-
+    private static ObjectInputStream in;
     public static void main(String[] args) {
         try{
-            LoginView loginView= new LoginView();
-            ReaderView  readerView = new ReaderView();
             AdminView adminView =new AdminView();
             WriterView writerView = new WriterView();
 
+            LoginView loginView= new LoginView(writerView,adminView);
+            ReaderView  readerView = new ReaderView(loginView);
+
             InetAddress serverAdress = InetAddress.getLocalHost();
+
             Connection connection = new Connection(serverAdress, 3333);
 
             LoginController loginController = new LoginController(connection);
@@ -43,11 +49,6 @@ public class ClientMain {
 
             writerView.setArticleList(articleList);
             writerView.updateArticleList();
-
-            while(true)
-            {
-
-            }
 
         }catch(Exception e){System.out.println(e);}
     }

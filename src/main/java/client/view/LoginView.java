@@ -13,17 +13,29 @@ public class LoginView {
     private JPanel mainPanel;
     private JFrame jFrame;
     private LoginController loginController;
-
-    public LoginView(){
+    WriterView writerView;
+    AdminView adminView;
+    public LoginView(WriterView writerView, AdminView adminView){
+        this.writerView=writerView;
+        this.adminView=adminView;
         this.jFrame= new JFrame("LoginView");
         jFrame.setContentPane(this.getMainPanel());
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.pack();
-        jFrame.setVisible(true);
+        jFrame.setVisible(false);
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                loginController.loginButtonAction(textField1.getText(), String.valueOf(passwordField1.getPassword()));
+                Integer userType= loginController.loginButtonAction(textField1.getText(), String.valueOf(passwordField1.getPassword()));
+                if(userType == 1 ){
+                    adminView.open();
+                    close();
+                }
+
+                if(userType == 2 ){
+                    writerView.open();
+                    close();
+                }
             }
         });
     }
@@ -38,5 +50,12 @@ public class LoginView {
 
     public JFrame getjFrame() {
         return jFrame;
+    }
+
+    public void open(){
+        jFrame.setVisible(true);
+    }
+    public void close(){
+        jFrame.setVisible(false);
     }
 }

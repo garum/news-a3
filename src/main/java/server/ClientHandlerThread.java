@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.WriterDao;
 import models.Article;
 import models.Writer;
+import observer.EventSource;
 import service.ArticleService;
 import service.AuthService;
 
@@ -16,9 +17,11 @@ import java.util.List;
 public class ClientHandlerThread  extends Thread {
 
     private  Socket socket;
-    public ClientHandlerThread(Socket socket)
+    private EventSource eventSource;
+    public ClientHandlerThread(Socket socket,EventSource eventSource)
     {
         this.socket=socket;
+        this.eventSource=eventSource;
     }
 
     @Override
@@ -69,7 +72,6 @@ public class ClientHandlerThread  extends Thread {
                 String password= connection.recvString();
                 AuthService authService =new AuthService();
                 authService.createWriter(username,password);
-
             }
 
 
@@ -83,8 +85,10 @@ public class ClientHandlerThread  extends Thread {
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }
+                eventSource.notifyObservers("create");
             }
             if(line.equals("UPDATEARTICLE")){
+
                 String json=connection.recvString();
                 final ObjectMapper mapper = new ObjectMapper();
                 try {
@@ -94,6 +98,7 @@ public class ClientHandlerThread  extends Thread {
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }
+                eventSource.notifyObservers("update");
             }
             if(line.equals("DELETEARTICLE")){
                 String json=connection.recvString();
@@ -105,6 +110,7 @@ public class ClientHandlerThread  extends Thread {
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }
+                eventSource.notifyObservers("delete");
             }
         }
     }

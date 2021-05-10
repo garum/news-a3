@@ -23,7 +23,7 @@ public class WriterView {
         jFrame.setContentPane(this.getMainPanel());
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.pack();
-        jFrame.setVisible(true);
+        jFrame.setVisible(false);
 
         updateButton.addActionListener(new ActionListener() {
             @Override
@@ -72,5 +72,12 @@ public class WriterView {
             demoList.addElement((String) article.getTitle());
         }
         this.list1.setModel(demoList);
+    }
+
+    public void open(){
+        jFrame.setVisible(true);
+    }
+    public void close(){
+        jFrame.setVisible(false);
     }
 }

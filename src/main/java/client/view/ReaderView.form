@@ -59,7 +59,7 @@
               <component id="7ada3" class="javax.swing.JLabel" binding="bodyLabel">
                 <constraints/>
                 <properties>
-                  <text value="Label"/>
+                  <text value="body"/>
                 </properties>
               </component>
             </children>
@@ -69,7 +69,7 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Label"/>
+              <text value="Title"/>
             </properties>
           </component>
           <component id="6ec06" class="javax.swing.JLabel" binding="authorLabel">
@@ -77,7 +77,7 @@
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Label"/>
+              <text value="author"/>
             </properties>
           </component>
           <component id="51328" class="javax.swing.JLabel" binding="abstractLabel">
@@ -85,7 +85,7 @@
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="4" hsize-policy="4" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Label"/>
+              <text value="abstract"/>
             </properties>
           </component>
         </children>

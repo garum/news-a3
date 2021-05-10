@@ -22,8 +22,11 @@ public class ReaderView {
     private ReaderController readerController;
     private List<Article> articleList;
     private Article viewArticle;
-    public ReaderView()
+
+    LoginView loginView;
+    public ReaderView(LoginView loginView)
     {
+        this.loginView=loginView;
         this.jFrame= new JFrame("ReaderView");
         jFrame.setContentPane(this.getMainPanel());
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,6 +47,8 @@ public class ReaderView {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                loginView.open();
+                close();
             }
         });
     }
@@ -80,5 +85,11 @@ public class ReaderView {
 
     public void setViewArticle(Article viewArticle) {
         this.viewArticle = viewArticle;
+    }
+    public void open(){
+        jFrame.setVisible(true);
+    }
+    public void close(){
+        jFrame.setVisible(false);
     }
 }

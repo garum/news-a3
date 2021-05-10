@@ -13,21 +13,46 @@ public class Connection {
     public ObjectOutputStream out;
     public ObjectInputStream in ;
 
-    public  Connection (InetAddress host, int port) throws IOException {
-        socket = new Socket(host,port);
-        out = new ObjectOutputStream(socket.getOutputStream());
-        in = new ObjectInputStream(socket.getInputStream());
+    public  Connection (InetAddress host, int port) {
+
+        try {
+
+            socket = new Socket(host,port);
+            System.out.println(socket.toString());
+            System.out.println("try to create out");
+            out = new ObjectOutputStream(socket.getOutputStream());
+            System.out.println("try to create in");
+            in = new ObjectInputStream(socket.getInputStream());
+            System.out.println("success to create in");
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public  Connection (Socket ss)
     {
         this.socket=ss;
         try {
+            System.out.println(socket.toString());
+            System.out.println("handler:try to create out");
             out = new ObjectOutputStream(socket.getOutputStream());
+            System.out.println("handler:try to create in");
             in = new ObjectInputStream(socket.getInputStream());
+            System.out.println("handler:success to create in");
+
         } catch (IOException e) {
+
             e.printStackTrace();
         }
+    }
+
+    public  Connection (Socket ss,ObjectOutputStream out,ObjectInputStream in)
+    {
+        this.socket=ss;
+        this.out=out;
+        this.in=in;
     }
 
     public void send(String msg)

@@ -68,4 +68,11 @@ public class ArticleFromView {
     public JPanel getMainPanel() {
         return mainPanel;
     }
+
+    public void open(){
+        jFrame.setVisible(true);
+    }
+    public void close(){
+        jFrame.setVisible(false);
+    }
 }
